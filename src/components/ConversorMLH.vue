@@ -11,6 +11,7 @@
           :min="0"
           v-model="mlh_p_mcgm.infusao"
           width="100%"
+          align="center"
           autofocus
         ></vue-numeric-input>
 
@@ -20,6 +21,7 @@
           :min="0"
           v-model="mlh_p_mcgm.concentracao"
           width="100%"
+          align="center"
           autofocus
         ></vue-numeric-input>
       </v-card-text>

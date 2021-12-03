@@ -13,6 +13,7 @@
           :min="1"
           v-model="metricas.peso"
           width="100%"
+          align="center"
           autofocus
         ></vue-numeric-input>
         <label for="idade">Idade em anos</label>
@@ -23,6 +24,7 @@
           placeholder="Idade"
           v-model="metricas.idade"
           width="100%"
+          align="center"
           autofocus
         ></vue-numeric-input>
       </v-card-text>
