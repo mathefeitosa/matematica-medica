@@ -54,13 +54,13 @@ export default {
       let idade = this.metricas.idade;
       let sexo = this.metricas.sexo;
       if (sexo == "M") {
-        if (idade > 65) {
+        if (idade < 65) {
           return this.metricas.peso * 0.6;
         } else {
           return this.metricas.peso * 0.5;
         }
       } else if (sexo == "F") {
-        if (idade > 65) {
+        if (idade < 65) {
           return this.metricas.peso * 0.5;
         } else {
           return this.metricas.peso * 0.45;
