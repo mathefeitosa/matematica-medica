@@ -9,6 +9,7 @@ export default new Vuex.Store({
       idade: 60,
       peso: 70,
       sexo: "M",
+      raca: "B",
     },
   },
   mutations: {

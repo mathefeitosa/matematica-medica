@@ -7,6 +7,10 @@
           <v-radio label="Mulher" value="F"></v-radio>
           <v-radio label="Homem" value="M"></v-radio>
         </v-radio-group>
+        <v-radio-group v-model="metricas.raca" row>
+          <v-radio label="Negro" value="N"></v-radio>
+          <v-radio label="Branco" value="B"></v-radio>
+        </v-radio-group>
         <label for="peso">Peso em kg</label>
         <vue-numeric-input
           id="peso"
@@ -27,10 +31,25 @@
           align="center"
           autofocus
         ></vue-numeric-input>
+
+        <label for="peso">Creatinina em mg/dl</label>
+        <vue-numeric-input
+          id="peso"
+          :min="0.1"
+          :step="0.1"
+          v-model="creatinina"
+          width="100%"
+          align="center"
+          autofocus
+        ></vue-numeric-input>
       </v-card-text>
       <v-divider></v-divider>
       <v-card-text>
         <p>Água corporal total: {{ agua_corporal_total.toFixed(1) }} L</p>
+        <p>
+          Clearance de creatinina:
+          {{ taxa_filtracao_glomerular.toFixed(2) }} ml/min/1.73 m2
+        </p>
       </v-card-text>
     </v-card>
   </v-col>
@@ -41,6 +60,8 @@ export default {
   data() {
     return {
       metricas: {},
+
+      creatinina: 1,
     };
   },
   watch: {
@@ -73,6 +94,47 @@ export default {
         );
         return "";
       }
+    },
+    constantes() {
+      let constantes = {
+        k: null,
+        alfa: null,
+        raca: null,
+        genero: null,
+      };
+
+      if (this.metricas.raca == "N") {
+        constantes.raca = 1.159;
+      } else {
+        constantes.raca = 1;
+      }
+
+      if (this.metricas.sexo === "F") {
+        constantes.k = 0.7;
+        constantes.alfa = -0.329;
+        constantes.genero = 1.018;
+      } else if (this.metricas.sexo === "M") {
+        constantes.k = 0.9;
+        constantes.alfa = -0.411;
+        constantes.genero = 1;
+      } else {
+        console.log("Erro ao calcular constantes (sexo não não definido?)");
+      }
+
+      return constantes;
+    },
+    taxa_filtracao_glomerular() {
+      return (
+        141 *
+        Math.pow(
+          Math.min(this.creatinina / this.constantes.k, 1),
+          this.constantes.alfa
+        ) *
+        Math.pow(Math.max(this.creatinina / this.constantes.k, 1), -1.209) *
+        Math.pow(0.993, this.metricas.idade) *
+        this.constantes.genero *
+        this.constantes.raca
+      );
     },
   },
 };
