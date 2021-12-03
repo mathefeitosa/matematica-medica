@@ -30,6 +30,11 @@ export default {
           link: "/drogas",
           icon: "mdi-pill",
         },
+        {
+          title: "Sobre",
+          link: "/about",
+          icon: "mdi-information-outline",
+        },
       ],
     };
   },
