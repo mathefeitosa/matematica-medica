@@ -2,17 +2,15 @@
   <v-container>
     <v-row>
       <Metricas></Metricas>
-      <ConversorMLH></ConversorMLH>
     </v-row>
   </v-container>
 </template>
 
 <script>
-import ConversorMLH from "../components/ConversorMLH.vue";
 import Metricas from "../components/Metricas.vue";
 
 export default {
-  components: { ConversorMLH, Metricas },
+  components: { Metricas },
   data() {
     return {
       metricas: {},

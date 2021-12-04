@@ -1,6 +1,6 @@
 <template>
   <v-col cols="12">
-    <v-card outlined>
+    <v-card outlined class="blue lighten-5" elevation="3">
       <v-card-title class="text-h6">Métricas do paciente</v-card-title>
       <v-card-text>
         <v-radio-group v-model="metricas.sexo" row>
@@ -60,7 +60,6 @@ export default {
   data() {
     return {
       metricas: {},
-
       creatinina: 1,
     };
   },

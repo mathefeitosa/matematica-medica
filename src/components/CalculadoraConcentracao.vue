@@ -44,6 +44,16 @@
           align="center"
           autofocus
         ></vue-numeric-input>
+
+        <label for="infusao">Infusão em ml/h</label>
+        <vue-numeric-input
+          id="infusao"
+          :min="0"
+          v-model="calculadora.infusao"
+          width="100%"
+          align="center"
+          autofocus
+        ></vue-numeric-input>
       </v-card-text>
       <v-card-text class="grey lighten-2">
         <p>
@@ -51,6 +61,7 @@
           ou {{ (concentracao.concentracao * 1000).toFixed(0) }} mcg/ml
         </p>
         <p><b>Volume de soro</b>: {{ concentracao.volume_soro }} ml</p>
+        <b>Dose</b>: {{ dose.toFixed(3) }} mcg/kg/min
       </v-card-text>
     </v-card>
   </v-col>
@@ -67,10 +78,17 @@ export default {
         numero_ampolas: 4,
         volume_final: 250,
         volume_soro: 0,
+        infusao: 5,
       },
     };
   },
   computed: {
+    dose() {
+      return (
+        (this.concentracao.concentracao * this.calculadora.infusao * 100) /
+        this.metricas.peso
+      );
+    },
     concentracao() {
       let concentracao = this.calculadora.concentracao_ampola;
       let num_ampolas = this.calculadora.numero_ampolas;
@@ -84,6 +102,9 @@ export default {
         volume_soro: vol_final - vol_total_ampolas,
         concentracao: droga_total / vol_final,
       };
+    },
+    metricas() {
+      return this.$store.state.metricas;
     },
   },
 };
