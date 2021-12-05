@@ -21,7 +21,7 @@ export default {
     return {
       items: [
         {
-          title: "Início",
+          title: "Dados do paciente",
           link: "/",
           icon: "mdi-home",
         },

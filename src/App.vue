@@ -5,7 +5,14 @@
     </v-navigation-drawer>
 
     <v-app-bar app>
-      <v-app-bar-nav-icon @click="drawer = !drawer"></v-app-bar-nav-icon>
+      <v-app-bar-nav-icon
+        @click="
+          () => {
+            drawer = !drawer;
+            mini = !mini;
+          }
+        "
+      ></v-app-bar-nav-icon>
 
       <v-toolbar-title>Matemática Médica</v-toolbar-title>
     </v-app-bar>
@@ -23,6 +30,7 @@ export default {
   data() {
     return {
       drawer: null,
+      mini: true,
     };
   },
 };

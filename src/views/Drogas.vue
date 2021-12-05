@@ -1,9 +1,11 @@
 <template>
   <v-container>
     <v-row>
-      <Metricas></Metricas>
-      <CalculadoraConcentracao></CalculadoraConcentracao>
-      <DrogasVasoativas></DrogasVasoativas>
+      <v-expansion-panels v-model="panels" multiple>
+        <Metricas></Metricas>
+        <CalculadoraConcentracao></CalculadoraConcentracao>
+        <DrogasVasoativas></DrogasVasoativas>
+      </v-expansion-panels>
     </v-row>
   </v-container>
 </template>
@@ -16,5 +18,10 @@ import DrogasVasoativas from "../components/DrogasVasoativas.vue";
 export default {
   components: { Metricas, CalculadoraConcentracao, DrogasVasoativas },
   name: "Drogas",
+  data() {
+    return {
+      panels: [0],
+    };
+  },
 };
 </script>

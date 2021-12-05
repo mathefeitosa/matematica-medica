@@ -1,7 +1,9 @@
 <template>
   <v-container>
     <v-row>
-      <Metricas></Metricas>
+      <v-expansion-panels v-model="panels" multiple>
+        <Metricas></Metricas>
+      </v-expansion-panels>
     </v-row>
   </v-container>
 </template>
@@ -14,6 +16,7 @@ export default {
   data() {
     return {
       metricas: {},
+      panels: [0],
     };
   },
   watch: {
