@@ -20,7 +20,7 @@ export default {
   name: "Drogas",
   data() {
     return {
-      panels: [0],
+      panels: [1, 2],
     };
   },
 };

@@ -26,7 +26,7 @@ export default {
           icon: "mdi-home",
         },
         {
-          title: "Drogas",
+          title: "Drogas e Infusão",
           link: "/drogas",
           icon: "mdi-pill",
         },
