@@ -1,7 +1,7 @@
 <template>
   <v-expansion-panel>
     <v-expansion-panel-header class="text-h6">
-      Metricas do paciente
+      Dados do paciente
     </v-expansion-panel-header>
     <v-expansion-panel-content>
       <v-radio-group v-model="metricas.sexo" row>
