@@ -3,7 +3,12 @@
     <v-row>
       <v-expansion-panels v-model="panels" multiple>
         <PediatriaMetricas></PediatriaMetricas>
-        <PediatriaHolidaySegar></PediatriaHolidaySegar>
+        <PediatriaHolidaySegar
+          v-if="!$store.state.pediatria.isRN"
+        ></PediatriaHolidaySegar>
+        <PediatriaHidratacaoRN
+          v-if="$store.state.pediatria.isRN"
+        ></PediatriaHidratacaoRN>
       </v-expansion-panels>
     </v-row>
   </v-container>
@@ -12,8 +17,14 @@
 <script>
 import PediatriaMetricas from "../components/PediatriaMetricas.vue";
 import PediatriaHolidaySegar from "../components/PediatriaHollidaySegar.vue";
+import PediatriaHidratacaoRN from "../components/PediatriaHidratacaoRN.vue";
+
 export default {
-  components: { PediatriaMetricas, PediatriaHolidaySegar },
+  components: {
+    PediatriaMetricas,
+    PediatriaHolidaySegar,
+    PediatriaHidratacaoRN,
+  },
   data() {
     return {
       panels: [0],

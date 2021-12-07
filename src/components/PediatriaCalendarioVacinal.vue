@@ -1,7 +1,7 @@
 <template>
   <v-expansion-panel>
     <v-expansion-panel-header class="text-h6">
-      Dados da criança
+      calendário Vacinal
     </v-expansion-panel-header>
     <v-expansion-panel-content>
       <v-radio-group v-model="pediatria.sexo" row>
