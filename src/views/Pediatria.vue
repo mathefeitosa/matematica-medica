@@ -9,6 +9,7 @@
         <PediatriaHidratacaoRN
           v-if="$store.state.pediatria.isRN"
         ></PediatriaHidratacaoRN>
+        <PediatriaCalendarioVacinal></PediatriaCalendarioVacinal>
       </v-expansion-panels>
     </v-row>
   </v-container>
@@ -18,12 +19,14 @@
 import PediatriaMetricas from "../components/PediatriaMetricas.vue";
 import PediatriaHolidaySegar from "../components/PediatriaHollidaySegar.vue";
 import PediatriaHidratacaoRN from "../components/PediatriaHidratacaoRN.vue";
+import PediatriaCalendarioVacinal from "../components/PediatriaCalendarioVacinal.vue";
 
 export default {
   components: {
     PediatriaMetricas,
     PediatriaHolidaySegar,
     PediatriaHidratacaoRN,
+    PediatriaCalendarioVacinal,
   },
   data() {
     return {

@@ -30,32 +30,38 @@
         autofocus
       ></vue-numeric-input>
 
-      <v-data-iterator :items="volumesTabela" hide-default-footer>
-        <template v-slot:header>
-          <v-row class="font-weight-bold">
-            <v-col>Item</v-col>
-            <v-col>Volume</v-col>
-          </v-row>
-        </template>
-        <template v-slot:default="props">
-          <v-row
-            v-for="(item, index) in props.items"
-            v-bind:key="index"
-            :class="item._classes"
-          >
-            <v-col>
-              {{ item.item }}
-            </v-col>
-            <v-col> {{ item.quantidade }} {{ item.unidade }} </v-col>
-          </v-row>
-        </template>
-      </v-data-iterator>
+      <v-divider class="mt-5 mb-3"></v-divider>
 
-      <v-select
-        v-model="tipoTomada"
-        label="Tomadas"
-        :items="['Bomba de Infusão', '6/6h', '8/8h', '12/12h']"
-      ></v-select>
+      <div class="pb-3">
+        <v-data-iterator :items="volumesTabela" hide-default-footer>
+          <template v-slot:header>
+            <v-row class="font-weight-bold">
+              <v-col>Item</v-col>
+              <v-col>Volume</v-col>
+            </v-row>
+          </template>
+          <template v-slot:default="props">
+            <v-row
+              v-for="(item, index) in props.items"
+              v-bind:key="index"
+              :class="item._classes"
+            >
+              <v-col>
+                {{ item.item }}
+              </v-col>
+              <v-col> {{ item.quantidade }} {{ item.unidade }} </v-col>
+            </v-row>
+          </template>
+        </v-data-iterator>
+      </div>
+
+      <div class="py-3">
+        <v-select
+          v-model="tipoTomada"
+          label="Tomadas"
+          :items="['Bomba de Infusão', '6/6h', '8/8h', '12/12h']"
+        ></v-select>
+      </div>
 
       <p><b>Prescrição:</b></p>
       <p>{{ prescricao }}</p>
