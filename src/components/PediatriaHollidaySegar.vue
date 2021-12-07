@@ -204,7 +204,7 @@ export default {
             (volPotassio / 3).toFixed(1) +
             " ml de KCl à " +
             tipoPotassio +
-            ", EV, de 6/6h."
+            ", EV, de 8/8h."
           );
         case "12/12h":
           return (
@@ -217,7 +217,7 @@ export default {
             (volPotassio / 2).toFixed(1) +
             " ml de KCl à " +
             tipoPotassio +
-            ", EV, de 6/6h."
+            ", EV, de 12/12h."
           );
         default:
           return "Opção de tomada não disponível!";
