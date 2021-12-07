@@ -4,7 +4,7 @@
       <v-expansion-panels v-model="panels" multiple>
         <Metricas></Metricas>
         <CalculadoraConcentracao></CalculadoraConcentracao>
-        <DrogasVasoativas></DrogasVasoativas>
+        <DoseDrogas></DoseDrogas>
       </v-expansion-panels>
     </v-row>
   </v-container>
@@ -13,10 +13,10 @@
 <script>
 import Metricas from "../components/Metricas.vue";
 import CalculadoraConcentracao from "../components/CalculadoraConcentracao.vue";
-import DrogasVasoativas from "../components/DrogasVasoativas.vue";
+import DoseDrogas from "../components/DoseDrogas.vue";
 
 export default {
-  components: { Metricas, CalculadoraConcentracao, DrogasVasoativas },
+  components: { Metricas, CalculadoraConcentracao, DoseDrogas },
   name: "Drogas",
   data() {
     return {
