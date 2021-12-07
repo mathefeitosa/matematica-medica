@@ -31,6 +31,11 @@ export default {
           icon: "mdi-pill",
         },
         {
+          title: "Pediatria",
+          link: "/pediatria",
+          icon: "mdi-baby-face-outline",
+        },
+        {
           title: "Sobre",
           link: "/about",
           icon: "mdi-information-outline",

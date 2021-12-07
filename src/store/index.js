@@ -11,6 +11,13 @@ export default new Vuex.Store({
       sexo: "M",
       raca: "B",
     },
+    pediatria: {
+      peso: 3.4,
+      sexo: "F",
+      idadeMeses: 3,
+      idadeAnos: 1,
+      isRN: false,
+    },
   },
   mutations: {
     set(state, [variable, value]) {
