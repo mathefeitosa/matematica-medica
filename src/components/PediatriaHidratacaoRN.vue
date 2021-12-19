@@ -7,9 +7,8 @@
       <label for="volume">Volume desejado (ml/kg)</label>
       <vue-numeric-input
         id="volume"
-        :min="130"
-        :max="180"
         :step="1"
+        min="0"
         v-model="volPorKg"
         width="100%"
         align="center"
@@ -21,8 +20,7 @@
       >
       <vue-numeric-input
         id="vig"
-        :min="3"
-        :max="12"
+        :min="4"
         :step="1"
         v-model="vig"
         width="100%"
@@ -94,33 +92,63 @@ export default {
     this.pediatria = this.$store.state.pediatria;
   },
   computed: {
+    //Controle de nome de variáveis.
+    peso() {
+      return this.pediatria.peso;
+    },
+
+    // Calculo dos volumes dos eletrólitos
+    volNACL() {
+      return this.peso * this.constantes.NACL20;
+    },
+    volKCL() {
+      return this.peso * this.constantes.KCL19;
+    },
+    volMGSO4() {
+      return this.peso * this.constantes.MGSO4;
+    },
+    volGlucCalc() {
+      return this.peso;
+    },
+    volEletrolitos() {
+      return this.volNACL + this.volKCL + this.volMGSO4 + this.volGlucCalc;
+    },
+
+    // Calculo do volume da proporção de glicose 5% e 50%
     gramasDeGlicose() {
       return this.vig * this.pediatria.peso * 1.44;
     },
-    volumes() {
-      let peso = this.pediatria.peso;
-
-      let volTotal = peso * this.volPorKg;
-      let volNACL = peso * this.constantes.NACL20;
-      let volKCL = peso * this.constantes.KCL19;
-      let volMGSO4 = peso * this.constantes.MGSO4;
-      let volGlucCalc = peso;
-      let volEletrolitos = volNACL + volKCL + volMGSO4 + volGlucCalc;
-
-      let volGlic50 =
-        (this.gramasDeGlicose * 20 - (volTotal - volEletrolitos)) / 9;
-      let volGlic05 = volTotal - volGlic50 - volEletrolitos;
-
-      return {
-        volTotal: volTotal,
-        volNACL: volNACL,
-        volKCL: volKCL,
-        volMGSO4: volMGSO4,
-        volGlic50: volGlic50,
-        volGlic05: volGlic05,
-        volGlucCalc: volGlucCalc,
-      };
+    volumeGlicFinal() {
+      return this.volTotal - this.volEletrolitos;
     },
+    concentracaoGlicose() {
+      return (100 * this.gramasDeGlicose) / this.volumeGlicFinal;
+    },
+    difGlic50_concFinal() {
+      return 50 - this.concentracaoGlicose;
+    },
+    difGlic05_concFinal() {
+      return this.concentracaoGlicose - 5;
+    },
+    volGlic50() {
+      return (
+        (this.volumeGlicFinal * this.difGlic50_concFinal) /
+        (this.difGlic50_concFinal + this.difGlic05_concFinal)
+      );
+    },
+    volGlic05() {
+      return (
+        (this.volumeGlicFinal * this.difGlic05_concFinal) /
+        (this.difGlic50_concFinal + this.difGlic05_concFinal)
+      );
+    },
+
+    //Outros calculos
+    volTotal() {
+      return this.peso * this.volPorKg;
+    },
+
+    //Elaborando dados para inserção em tabela
     volumesTabela() {
       return [
         {
@@ -131,95 +159,94 @@ export default {
         },
         {
           item: "Soro Glicosado 5%",
-          quantidade: this.volumes.volGlic05.toFixed(1),
+          quantidade: this.volGlic05.toFixed(1),
           unidade: "ml/dia",
           _classes: "",
         },
         {
           item: "Glicose à 50%",
-          quantidade: this.volumes.volGlic50.toFixed(1),
+          quantidade: this.volGlic50.toFixed(1),
           unidade: "ml/dia",
           _classes: "",
         },
         {
           item: "NaCl à 20%",
-          quantidade: this.volumes.volNACL.toFixed(1),
+          quantidade: this.volNACL.toFixed(1),
           unidade: "ml/dia",
           _classes: "",
         },
         {
           item: "KCl à 19,1%",
-          quantidade: this.volumes.volKCL.toFixed(1),
+          quantidade: this.volKCL.toFixed(1),
           unidade: "ml/dia",
           _classes: "",
         },
         {
           item: "Magnésio à 10%",
-          quantidade: this.volumes.volMGSO4.toFixed(1),
+          quantidade: this.volMGSO4.toFixed(1),
           unidade: "ml/dia",
           _classes: "",
         },
         {
           item: "Gluconato de Cálcio à 10%",
-          quantidade: this.volumes.volGlucCalc.toFixed(1),
+          quantidade: this.volGlucCalc.toFixed(1),
           unidade: "ml/dia",
           _classes: "",
         },
         {
           item: "Volume Total",
-          quantidade: this.volumes.volTotal.toFixed(1),
+          quantidade: this.volTotal.toFixed(1),
           unidade: "ml/dia",
           _classes: "font-weight-bold green lighten-2",
         },
       ];
     },
     prescricao() {
-      let v = this.volumes;
       let string;
       switch (this.tipoTomada) {
         case "Bomba de Infusão":
           string = `
-            ${v.volGlic05.toFixed(1)} ml SG5% +
-            ${v.volGlic50.toFixed(1)} ml G50% +
-            ${v.volNACL.toFixed(1)} ml NaCl 20% +
-            ${v.volKCL.toFixed(1)} ml KCl 19,1% +
-            ${v.volMGSO4.toFixed(1)} ml MgSO4 10% +
-            ${v.volGlucCalc.toFixed(
+            SG5% ${this.volGlic05.toFixed(1)} ml +
+            G50% ${this.volGlic50.toFixed(1)} ml +
+            NaCl 20% ${this.volNACL.toFixed(1)} ml +
+            KCl 19,1% ${this.volKCL.toFixed(1)} ml +
+            MgSO4 10% ${this.volMGSO4.toFixed(1)} ml +
+            Gluc. de Cálcio 10% ${this.volGlucCalc.toFixed(
               1
-            )} ml Gluc. de Cálcio 10%, EV, em 24h na BIC à
-            ${(v.volTotal / 24).toFixed(1)} ml/h.
+            )} ml, EV, em 24h na BIC à
+            ${(this.volTotal / 24).toFixed(1)} ml/h.
              `;
           return string;
         case "6/6h":
           string = `
-            ${(v.volGlic05 / 4).toFixed(1)} ml SG5% +
-            ${(v.volGlic50 / 4).toFixed(1)} ml G50% +
-            ${(v.volNACL / 4).toFixed(1)} ml NaCl 20% +
-            ${(v.volKCL / 4).toFixed(1)} ml KCl 19,1% +
-            ${(v.volMGSO4 / 4).toFixed(1)} ml MgSO4 10% +
-            ${(v.volGlucCalc / 4).toFixed(
+            ${(this.volGlic05 / 4).toFixed(1)} ml SG5% +
+            ${(this.volGlic50 / 4).toFixed(1)} ml G50% +
+            ${(this.volNACL / 4).toFixed(1)} ml NaCl 20% +
+            ${(this.volKCL / 4).toFixed(1)} ml KCl 19,1% +
+            ${(this.volMGSO4 / 4).toFixed(1)} ml MgSO4 10% +
+            ${(this.volGlucCalc / 4).toFixed(
               1
             )} ml Gluc. de Cálcio 10%, EV, de 6/6h.`;
           return string;
         case "8/8h":
           string = `
-            ${(v.volGlic05 / 3).toFixed(1)} ml SG5% +
-            ${(v.volGlic50 / 3).toFixed(1)} ml G50% +
-            ${(v.volNACL / 3).toFixed(1)} ml NaCl 20% +
-            ${(v.volKCL / 3).toFixed(1)} ml KCl 19,1% +
-            ${(v.volMGSO4 / 3).toFixed(1)} ml MgSO4 10% +
-            ${(v.volGlucCalc / 3).toFixed(
+            ${(this.volGlic05 / 3).toFixed(1)} ml SG5% +
+            ${(this.volGlic50 / 3).toFixed(1)} ml G50% +
+            ${(this.volNACL / 3).toFixed(1)} ml NaCl 20% +
+            ${(this.volKCL / 3).toFixed(1)} ml KCl 19,1% +
+            ${(this.volMGSO4 / 3).toFixed(1)} ml MgSO4 10% +
+            ${(this.volGlucCalc / 3).toFixed(
               1
             )} ml Gluc. de Cálcio 10%, EV, de 8/8h.`;
           return string;
         case "12/12h":
           string = `
-            ${(v.volGlic05 / 2).toFixed(1)} ml SG5% +
-            ${(v.volGlic50 / 2).toFixed(1)} ml G50% +
-            ${(v.volNACL / 2).toFixed(1)} ml NaCl 20% +
-            ${(v.volKCL / 2).toFixed(1)} ml KCl 19,1% +
-            ${(v.volMGSO4 / 2).toFixed(1)} ml MgSO4 10% +
-            ${(v.volGlucCalc / 2).toFixed(
+            ${(this.volGlic05 / 2).toFixed(1)} ml SG5% +
+            ${(this.volGlic50 / 2).toFixed(1)} ml G50% +
+            ${(this.volNACL / 2).toFixed(1)} ml NaCl 20% +
+            ${(this.volKCL / 2).toFixed(1)} ml KCl 19,1% +
+            ${(this.volMGSO4 / 2).toFixed(1)} ml MgSO4 10% +
+            ${(this.volGlucCalc / 2).toFixed(
               1
             )} ml Gluc. de Cálcio 10%, EV, de 12/12h.`;
           return string;

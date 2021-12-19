@@ -30,7 +30,7 @@ export default {
   },
   data() {
     return {
-      panels: [0],
+      panels: [0, 1, 2, 3],
     };
   },
 };
