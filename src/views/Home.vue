@@ -2,7 +2,9 @@
   <v-container>
     <v-row>
       <v-expansion-panels v-model="panels" multiple>
-        <Metricas></Metricas>
+        <v-col cols="12" xm="12" md="6" lg="4">
+          <Metricas></Metricas>
+        </v-col>
       </v-expansion-panels>
     </v-row>
   </v-container>

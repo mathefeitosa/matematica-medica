@@ -2,14 +2,30 @@
   <v-container>
     <v-row>
       <v-expansion-panels v-model="panels" multiple>
-        <PediatriaMetricas></PediatriaMetricas>
-        <PediatriaHolidaySegar
+        <v-col cols="12" xm="12" md="6" lg="4">
+          <PediatriaMetricas></PediatriaMetricas>
+        </v-col>
+        <v-col
+          cols="12"
+          xm="12"
+          md="6"
+          lg="4"
           v-if="!$store.state.pediatria.isRN"
-        ></PediatriaHolidaySegar>
-        <PediatriaHidratacaoRN
+        >
+          <PediatriaHolidaySegar></PediatriaHolidaySegar>
+        </v-col>
+        <v-col
+          cols="12"
+          xm="12"
+          md="6"
+          lg="4"
           v-if="$store.state.pediatria.isRN"
-        ></PediatriaHidratacaoRN>
-        <PediatriaCalendarioVacinal></PediatriaCalendarioVacinal>
+        >
+          <PediatriaHidratacaoRN></PediatriaHidratacaoRN>
+        </v-col>
+        <v-col cols="12" xm="12" md="6" lg="4">
+          <PediatriaCalendarioVacinal></PediatriaCalendarioVacinal>
+        </v-col>
       </v-expansion-panels>
     </v-row>
   </v-container>

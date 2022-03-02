@@ -2,9 +2,15 @@
   <v-container>
     <v-row>
       <v-expansion-panels v-model="panels" multiple>
-        <Metricas></Metricas>
-        <CalculadoraConcentracao></CalculadoraConcentracao>
-        <DoseDrogas></DoseDrogas>
+        <v-col cols="12" sm="12" md="6" lg="4">
+          <Metricas></Metricas>
+        </v-col>
+        <v-col cols="12" xm="12" md="6" lg="4">
+          <CalculadoraConcentracao></CalculadoraConcentracao>
+        </v-col>
+        <v-col cols="12" xm="12" md="6" lg="4">
+          <DoseDrogas></DoseDrogas>
+        </v-col>
       </v-expansion-panels>
     </v-row>
   </v-container>

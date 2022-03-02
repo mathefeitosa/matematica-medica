@@ -24,7 +24,7 @@
 
       <p>
         <span v-bind="attrs" v-on="on">
-          <b>Fentanil (analgesia):</b> {{ fentanil.analgesia.min }}-{{
+          <b>Fentanil:</b> {{ fentanil.analgesia.min }}-{{
             fentanil.analgesia.max
           }}
           mcg/min (0.5-5 mcg/kg/min)
