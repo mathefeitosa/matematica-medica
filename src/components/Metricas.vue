@@ -1,30 +1,48 @@
 <template>
   <v-expansion-panel>
-    <v-expansion-panel-header class="text-h6">
+    <v-expansion-panel-header class="text-h6 grey lighten-1">
       Dados do paciente
     </v-expansion-panel-header>
+
     <v-expansion-panel-content>
-      <v-radio-group v-model="metricas.sexo" row>
-        <v-radio label="Mulher" value="F"></v-radio>
-        <v-radio label="Homem" value="M"></v-radio>
-      </v-radio-group>
-      <v-radio-group v-model="metricas.raca" row>
-        <v-radio label="Negro" value="N"></v-radio>
-        <v-radio label="Branco" value="B"></v-radio>
-      </v-radio-group>
-      <label for="peso">Peso em kg</label>
+      <div class="d-flex flex-row justify-center">
+        <v-spacer></v-spacer>
+        <v-radio-group v-model="metricas.sexo">
+          <v-radio label="Mulher" value="F" color="pink"></v-radio>
+          <v-radio label="Homem" value="M" color="light-blue"></v-radio>
+        </v-radio-group>
+        <v-spacer></v-spacer>
+        <v-radio-group v-model="metricas.raca">
+          <v-radio label="Negro" value="N" color="brown darken-1"></v-radio>
+          <v-radio label="Branco" value="B" color="brown lighten-4"></v-radio>
+        </v-radio-group>
+        <v-spacer></v-spacer>
+      </div>
+
+      <label for="peso">Peso (kg)</label>
       <vue-numeric-input
         id="peso"
-        :min="1"
+        :min="0"
         v-model="metricas.peso"
         width="100%"
         align="center"
         autofocus
       ></vue-numeric-input>
-      <label for="idade">Idade em anos</label>
+      <v-slider
+        hide-details=""
+        v-model="metricas.peso"
+        max="150"
+        min="0"
+        step="1"
+        persistent-hint
+      ></v-slider>
+
+      <v-divider class="my-1"></v-divider>
+
+      <label for="idade">Idade (anos)</label>
       <vue-numeric-input
         id="idade"
-        :min="1"
+        :min="0"
         :max="100"
         placeholder="Idade"
         v-model="metricas.idade"
@@ -32,8 +50,18 @@
         align="center"
         autofocus
       ></vue-numeric-input>
+      <v-slider
+        hide-details=""
+        v-model="metricas.idade"
+        max="100"
+        min="0"
+        step="1"
+        persistent-hint
+      ></v-slider>
 
-      <label for="peso">Creatinina em mg/dl</label>
+      <v-divider class="my-1"></v-divider>
+
+      <label for="peso">Creatinina (mg/dL)</label>
       <vue-numeric-input
         id="peso"
         :min="0.1"
@@ -43,12 +71,22 @@
         align="center"
         autofocus
       ></vue-numeric-input>
+      <v-slider
+        hide-details=""
+        v-model="creatinina"
+        max="15"
+        min="0"
+        step="0.1"
+        persistent-hint
+      ></v-slider>
+      <v-divider class="my-1"></v-divider>
     </v-expansion-panel-content>
+
     <v-expansion-panel-content color="grey lighten-4" class="py-3">
       <p><b>Água corporal total</b>: {{ agua_corporal_total.toFixed(1) }} L</p>
       <p>
         <b>Clr. de creatinina (CKD-EPI)</b>:
-        {{ taxa_filtracao_glomerular.toFixed(2) }} ml/min/1.73 m2
+        {{ taxa_filtracao_glomerular.toFixed(2) }} mL/min/1,73 m²
       </p>
     </v-expansion-panel-content>
   </v-expansion-panel>

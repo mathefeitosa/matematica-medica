@@ -6,7 +6,7 @@
           <v-list-item three-line>
             <v-list-item-content>
               <v-list-item-title class="text-h5 mb-1">
-                @mathe.feitosa
+                matheusfeitosa@alu.uern.br
               </v-list-item-title>
               <v-list-item-subtitle>
                 Aplicativo em construção.

@@ -1,6 +1,6 @@
 <template>
   <v-expansion-panel>
-    <v-expansion-panel-header class="text-h6">
+    <v-expansion-panel-header class="text-h6 grey lighten-1">
       Hidratação para Recém-nascido
     </v-expansion-panel-header>
     <v-expansion-panel-content>

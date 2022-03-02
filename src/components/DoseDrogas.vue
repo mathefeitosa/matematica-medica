@@ -1,9 +1,9 @@
 <template>
   <v-expansion-panel>
-    <v-expansion-panel-header class="text-h6">
-      Doses ajustadas pelo peso
+    <v-expansion-panel-header class="text-h6 grey lighten-1">
+      Doses ajustadas para o peso
     </v-expansion-panel-header>
-    <v-expansion-panel-content class="py-2" color="grey lighten-4">
+    <v-expansion-panel-content class="py-2">
       <p>
         <span v-bind="attrs" v-on="on">
           <b>Dobutamina</b>: {{ dobutamina.min.toFixed(0) }}-{{
