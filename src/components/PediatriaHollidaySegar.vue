@@ -57,9 +57,9 @@ export default {
   data() {
     return {
       pediatria: {},
-      tipoSodio: "10%",
+      tipoSodio: "20%",
       tipoPotassio: "19,1%",
-      tipoTomada: "6/6h",
+      tipoTomada: "8/8h",
     };
   },
   watch: {

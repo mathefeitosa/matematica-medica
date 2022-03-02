@@ -112,26 +112,30 @@ export default {
     agua_corporal_total() {
       let idade = this.metricas.idade;
       let sexo = this.metricas.sexo;
+      let peso = this.metricas.peso;
+      let multiplicador = 0;
+
       if (sexo == "M") {
         if (idade < 65) {
-          return this.metricas.peso * 0.6;
+          multiplicador = 0.6;
         } else {
-          return this.metricas.peso * 0.5;
+          multiplicador = 0.5;
         }
       } else if (sexo == "F") {
         if (idade < 65) {
-          return this.metricas.peso * 0.5;
+          multiplicador = 0.5;
         } else {
-          return this.metricas.peso * 0.45;
+          multiplicador = 0.45;
         }
       } else {
         console.log(
-          "Sexo dsconhecido. Impossível calcular agua corporal total."
+          "Sexo desconhecido. Impossível calcular agua corporal total."
         );
-        return "";
+        return "Erro";
       }
+      return peso * multiplicador;
     },
-    constantes() {
+    taxa_filtracao_glomerular() {
       let constantes = {
         k: null,
         alfa: null,
@@ -157,19 +161,13 @@ export default {
         console.log("Erro ao calcular constantes (sexo não não definido?)");
       }
 
-      return constantes;
-    },
-    taxa_filtracao_glomerular() {
       return (
         141 *
-        Math.pow(
-          Math.min(this.creatinina / this.constantes.k, 1),
-          this.constantes.alfa
-        ) *
-        Math.pow(Math.max(this.creatinina / this.constantes.k, 1), -1.209) *
+        Math.pow(Math.min(this.creatinina / constantes.k, 1), constantes.alfa) *
+        Math.pow(Math.max(this.creatinina / constantes.k, 1), -1.209) *
         Math.pow(0.993, this.metricas.idade) *
-        this.constantes.genero *
-        this.constantes.raca
+        constantes.genero *
+        constantes.raca
       );
     },
   },
