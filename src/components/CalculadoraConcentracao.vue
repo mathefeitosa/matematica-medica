@@ -1,6 +1,6 @@
 <template>
   <v-expansion-panel>
-    <v-expansion-panel-header class="text-h6 font-weight-black grey lighten-2">
+    <v-expansion-panel-header class="text-h6 font-weight-black grey lighten-1">
       Calculadora de infusão
     </v-expansion-panel-header>
     <v-expansion-panel-content>
