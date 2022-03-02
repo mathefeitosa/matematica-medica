@@ -4,6 +4,7 @@
       Calculadora de infusão
     </v-expansion-panel-header>
     <v-expansion-panel-content>
+      <label class="pt-5" for="concentracao_ampola"> Pré-definições </label>
       <div>
         <div class="text-center">
           <v-btn
@@ -15,17 +16,46 @@
           >
             Noradrenalina 4 amp
           </v-btn>
-          <v-btn small class="ma-2" outlined color="grey darken-2">
+          <v-btn
+            small
+            class="ma-2"
+            outlined
+            color="grey darken-2"
+            @click="valores_predefinidos('noradrenalina_8_ap')"
+          >
             Noradrenalina 8 amp
           </v-btn>
-          <v-btn small class="ma-2" outlined color="grey darken-2">
-            Dobutamina
+          <v-btn
+            small
+            class="ma-2"
+            outlined
+            color="grey darken-2"
+            @click="valores_predefinidos('dobutamina')"
+          >
+            Dobutamina 4 AMP
           </v-btn>
-          <v-btn small class="ma-2" outlined color="grey darken-2">
-            Fentanil
+          <v-btn
+            small
+            class="ma-2"
+            outlined
+            color="grey darken-2"
+            @click="valores_predefinidos('fentanil')"
+          >
+            Fentanil 1 AMP
+          </v-btn>
+          <v-btn
+            small
+            class="ma-2"
+            outlined
+            color="grey darken-2"
+            @click="valores_predefinidos('dopamina')"
+          >
+            Dopamina 2 AMP
           </v-btn>
         </div>
       </div>
+
+      <v-divider class="my-4"></v-divider>
 
       <label class="pt-5" for="concentracao_ampola">
         Concentração da ampola
@@ -33,8 +63,8 @@
       <div class="d-flex flex justify-center align-center">
         <div class="d-flex justify-center">
           <v-radio-group v-model="calculadora.modo_concentracao" row>
-            <v-radio label="mcg/mL" value="mcg/mL"></v-radio>
-            <v-radio label="mg/mL" value="mg/mL"></v-radio>
+            <v-radio label="mcg/ml" value="mcg/ml"></v-radio>
+            <v-radio label="mg/ml" value="mg/ml"></v-radio>
           </v-radio-group>
         </div>
         <div>
@@ -139,7 +169,7 @@ export default {
     return {
       calculadora: {
         concentracao_ampola: 2,
-        modo_concentracao: "mg/mL",
+        modo_concentracao: "mg/ml",
         volume_ampola: 4,
         numero_ampolas: 4,
         volume_final: 250,
@@ -150,9 +180,9 @@ export default {
   },
   computed: {
     conversao_mcg() {
-      if (this.calculadora.modo_concentracao == "mg/mL") {
+      if (this.calculadora.modo_concentracao == "mg/ml") {
         return 1;
-      } else if (this.calculadora.modo_concentracao == "mcg/mL") {
+      } else if (this.calculadora.modo_concentracao == "mcg/ml") {
         return 1000;
       }
       return 1;
@@ -189,15 +219,39 @@ export default {
     valores_predefinidos(droga) {
       switch (droga) {
         case "dobutamina":
+          this.calculadora.modo_concentracao = "mg/ml";
           this.calculadora.volume_ampola = 20;
           this.calculadora.numero_ampolas = 4;
           this.calculadora.concentracao_ampola = 12.5;
+          this.calculadora.volume_final = 250;
+          break;
+        case "dopamina":
+          this.calculadora.modo_concentracao = "mg/ml";
+          this.calculadora.volume_ampola = 5;
+          this.calculadora.numero_ampolas = 2;
+          this.calculadora.concentracao_ampola = 40;
+          this.calculadora.volume_final = 250;
           break;
         case "noradrenalina_4_ap":
+          this.calculadora.modo_concentracao = "mg/ml";
           this.calculadora.volume_ampola = 4;
           this.calculadora.numero_ampolas = 4;
           this.calculadora.concentracao_ampola = 1;
           this.calculadora.volume_final = 250;
+          break;
+        case "noradrenalina_8_ap":
+          this.calculadora.modo_concentracao = "mg/ml";
+          this.calculadora.volume_ampola = 4;
+          this.calculadora.numero_ampolas = 8;
+          this.calculadora.concentracao_ampola = 1;
+          this.calculadora.volume_final = 250;
+          break;
+        case "fentanil":
+          this.calculadora.modo_concentracao = "mcg/ml";
+          this.calculadora.volume_ampola = 20;
+          this.calculadora.numero_ampolas = 1;
+          this.calculadora.concentracao_ampola = 50;
+          this.calculadora.volume_final = 120;
           break;
         default:
           console.log("Prefedinição de droga desconhecida!");

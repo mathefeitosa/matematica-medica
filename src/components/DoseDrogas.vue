@@ -1,7 +1,7 @@
 <template>
   <v-expansion-panel>
     <v-expansion-panel-header class="text-h6 grey lighten-1">
-      Doses ajustadas para o peso
+      Doses para peso selecionado ({{ $store.state.metricas.peso }} kg)
     </v-expansion-panel-header>
     <v-expansion-panel-content class="py-2">
       <p>
