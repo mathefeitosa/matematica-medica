@@ -156,8 +156,11 @@
       </p>
 
       <b>Dose da infusão</b>: {{ dose.toFixed(2) }} mcg/kg/min •
-      {{ (dose * metricas.peso).toFixed(2) }}
-      mcg/min
+      {{ (dose/1000).toFixed(2) }} mg/kg/min •
+      {{ (dose*60).toFixed(2) }} mcg/kg/h •
+      {{ ((dose*60)/1000).toFixed(2) }} mg/kg/h •
+      {{ (dose * metricas.peso).toFixed(2) }} mcg/min •
+      {{ (dose * metricas.peso*60).toFixed(2) }} mcg/h
     </v-expansion-panel-content>
   </v-expansion-panel>
 </template>
