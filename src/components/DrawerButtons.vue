@@ -31,6 +31,11 @@ export default {
           icon: "mdi-pill",
         },
         {
+          title: "Drogas e Infusão (nova)",
+          link: "/calculadora_nova",
+          icon: "mdi-pill",
+        },
+        {
           title: "Pediatria",
           link: "/pediatria",
           icon: "mdi-baby-face-outline",

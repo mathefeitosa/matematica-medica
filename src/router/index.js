@@ -24,6 +24,11 @@ const routes = [
     name: "Pediatria",
     component: () => import("../views/Pediatria.vue"),
   },
+  {
+    path: "/calculadora_nova",
+    name: "Calculadora de Infusão",
+    component: () => import("../views/CalculadoraNova.vue"),
+  },
 ];
 
 const router = new VueRouter({
